@@ -1,8 +1,9 @@
 const input = document.getElementById("password");
 const lengthVal = document.getElementById("lengthVal");
 const lowerVal = document.getElementById("lowerVal")
+const numVal = document.getElementById("numVal")
 
-input.addEventListener('input', function (e) {
+input.addEventListener('input', function lengthCheck(e) {
     if (input.value.length >= 5 && input.value.length <= 12) {
         lengthVal.textContent = "✅ Length between 5 and 12";
     }
@@ -11,7 +12,7 @@ input.addEventListener('input', function (e) {
     }
 });
 
-input.addEventListener('input', function (e) {
+input.addEventListener('input', function lowerDigit(e) {
 
     const inputValue = input.value;
     const inputValueArray = inputValue.split("")
@@ -35,9 +36,20 @@ input.addEventListener('input', function (e) {
         //     console.log(isLower);
         //     return isLower;
         // }
-
     }
 
+});
+
+input.addEventListener('input', function lowerDigit(e) {
+
+    const inputValue = input.value;
+    const inputValueArray = inputValue.split("")
+    const digit = e.data
+    console.log(typeof digit);
+
+    if (!isNaN(digit * 1)) {
+        numVal.textContent = "✅ At least one number"
+    }
 
 });
 
