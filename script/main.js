@@ -21,8 +21,8 @@ input.addEventListener('input', function lowerDigitCheck(e) {
     for (let i = 0; i < inputValue.length; i++) {
         const singleDigit = inputValue[i];
 
-        if (isNaN(singleDigit * 1) && singleDigit == singleDigit.toLowerCase()) {
-
+        //usiamo un regex anzichè un isNan e toLowerCase() per un affidabilità maggiore
+        if (/[a-z]/.test(singleDigit)) {
             foundLowerCase = true;
             break;
             
@@ -43,10 +43,12 @@ input.addEventListener('input', function numberCheck(e) {
     const inputValue = input.value;
     let isNumber = false
 
+    console.log(typeof e.data);
+
     for (let i = 0; i < inputValue.length; i++) {
         const singleDigit = inputValue[i];
 
-        if (!isNaN(singleDigit * 1)) {
+        if (/[0-9]/.test(singleDigit)) {
             isNumber = true
             break
         }
@@ -80,5 +82,7 @@ input.addEventListener('input', function specCharCheck() {
     } else {
         specCharVal.textContent = "❌ Min. 1 special character (!, @, #, $, %, *, +, <, >)";
     }
+
+    return foundSpecialChar
 });
 
