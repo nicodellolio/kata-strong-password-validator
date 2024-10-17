@@ -4,19 +4,32 @@ const lowerVal = document.getElementById("lowerVal")
 const numVal = document.getElementById("numVal")
 const specCharVal = document.getElementById("specCharVal")
 
+let rightLength = false
+let foundLowerCase = false;
+let isNumber = false;
+let foundSpecialChar = false;
+
 input.addEventListener('input', function lengthCheck(e) {
+
     if (input.value.length >= 6 && input.value.length <= 24) {
+        rightLength = true
+    }
+    else {
+        rightLength = false
+    }
+
+    if (rightLength) {
         lengthVal.textContent = "✅ Length between 6 and 24";
     }
     else {
         lengthVal.textContent = "❌ Length between 6 and 24";
     }
+
 });
 
-input.addEventListener('input', function lowerDigitCheck(e) {
+input.addEventListener('input', () => {
 
     const inputValue = input.value;
-    let foundLowerCase = false
 
     for (let i = 0; i < inputValue.length; i++) {
         const singleDigit = inputValue[i];
@@ -25,53 +38,48 @@ input.addEventListener('input', function lowerDigitCheck(e) {
         if (/[a-z]/.test(singleDigit)) {
             foundLowerCase = true;
             break;
-            
+
         }
     }
-    
-    if (foundLowerCase) {
-        lowerVal.textContent = "✅ Min. 1 lower case"
-    }
-    else{
-        lowerVal.textContent = "❌ Min. 1 lower case"
-    }
 
+    if (foundLowerCase) {
+        lowerVal.textContent = "✅ Min. 1 lower case";
+    }
+    else {
+        lowerVal.textContent = "❌ Min. 1 lower case";
+    }
 
 });
 
-input.addEventListener('input', function numberCheck(e) {
+input.addEventListener('input', () => {
     const inputValue = input.value;
-    let isNumber = false
-
-    console.log(typeof e.data);
 
     for (let i = 0; i < inputValue.length; i++) {
         const singleDigit = inputValue[i];
 
         if (/[0-9]/.test(singleDigit)) {
-            isNumber = true
-            break
+            isNumber = true;
+            break;
         }
     }
 
     if (isNumber) {
-        numVal.textContent = "✅ Min. 1 number"
+        numVal.textContent = "✅ Min. 1 number";
     }
     else {
-        numVal.textContent = "❌ Min. 1 number"
+        numVal.textContent = "❌ Min. 1 number";
     }
 
 });
 
-input.addEventListener('input', function specCharCheck() {
+input.addEventListener('input', () => {
     const inputValue = input.value;
-    const specCharArray = ["!", "@", "#", "$", "%", "*", "+", "<", ">"];
-    let foundSpecialChar = false;
+    // const specCharArray = ["!", "@", "#", "$", "%", "*", "+", "<", ">"];
 
     for (let i = 0; i < inputValue.length; i++) {
         const singleDigit = inputValue[i];
 
-        if (specCharArray.includes(singleDigit)) {
+        if (/[!@#$%*+<>]/.test(singleDigit)) {
             foundSpecialChar = true;
             break
         }
@@ -83,6 +91,28 @@ input.addEventListener('input', function specCharCheck() {
         specCharVal.textContent = "❌ Min. 1 special character (!, @, #, $, %, *, +, <, >)";
     }
 
-    return foundSpecialChar
+});
+
+input.addEventListener('input', () => {
+    const validatingConditions = [
+        rightLength,
+        foundLowerCase,
+        isNumber,
+        foundSpecialChar
+    ];
+
+    let trueValidatingConditions = []
+
+    trueValidatingConditions.length = 0
+
+
+    for (let i = 0; i < validatingConditions.length; i++) {
+        const validatingCondition = validatingConditions[i];
+
+        if (validatingCondition == true) {
+            trueValidatingConditions.length++
+        }
+    }
+    console.log(trueValidatingConditions.length);
 });
 
